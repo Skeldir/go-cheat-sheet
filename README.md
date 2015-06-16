@@ -111,13 +111,15 @@ func main() {
 |`<-`|send / receive operator (see 'Channels' below)|
 
 ## Declarations
-* Type goes after identifier! 
-* `var foo int // declaration without initialization`
-* `var foo int = 42 // declaration with initialization`
-* `var foo, bar int = 42, 1302 // declare and init multiple vars at once`
-* `var foo = 42 // type omitted, will be inferred`
-* `foo := 42 // shorthand, only in func bodies, omit var keyword, type is always implicit `
-* `const constant = "This is a constant"`
+```go
+//Type goes after identifier! 
+var foo int // declaration without initialization
+var foo int = 42 // declaration with initialization
+var foo, bar int = 42, 1302 // declare and init multiple vars at once
+var foo = 42 // type omitted, will be inferred
+foo := 42 // shorthand, only in func bodies, omit var keyword, type is always implicit
+const constant = "This is a constant"
+```
 
 ## Functions
 ```go
@@ -222,7 +224,7 @@ uint uint8 uint16 uint32 uint64 uintptr
 
 byte // alias for uint8
 
-rune // alias for int32 ~= a character (Unicode code point) - very Viking
+rune // alias for int32 ~= a character (Unicode code point)
 
 float32 float64
 
@@ -287,6 +289,17 @@ func main() {
     }
     for { // you can omit the condition ~ while (true)
     }
+    
+    // using a range:
+    // if you only need the index:
+    for index := range slice_array_or_map {
+    }
+    // with index and value
+    for index, value := range slice_array_or_map {
+    }
+    // if you don't need the index
+    for _, value := range slice_array_or_map {
+    }
 ```
 
 ### Switch
@@ -309,7 +322,7 @@ func main() {
     }
 ```
 
-## Arrays, Slices, Ranges
+## Arrays, Slices
 
 ### Arrays
 ```go
