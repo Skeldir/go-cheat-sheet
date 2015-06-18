@@ -45,13 +45,13 @@ If you're new to Go, do that tour. Seriously.
 * Imperative language
 * Statically typed
 * Syntax similar to Java/C/C++, but less parantheses and no semicolons
-* Compiles to native code (no JVM)
+* Compiles to native code (no VM/Interpreter)
 * No classes, but structs with methods
 * Interfaces
-* No implementation inheritance. There's [type embedding](http://golang.org/doc/effective%5Fgo.html#embedding), though.
+* No implementation inheritance. There's [type embedding](http://golang.org/doc/effective%5Fgo.html#embedding), though
 * Functions are first class citizens
 * Functions can return multiple values
-* Go has closures
+* Closures
 * Pointers, but not pointer arithmetic
 * Built-in concurrency primitives: Goroutines and Channels
 
@@ -112,11 +112,11 @@ func main() {
 
 ## Declarations
 ```go
-//Type goes after identifier! 
-var foo int // declaration without initialization
-var foo int = 42 // declaration with initialization
-var foo, bar int = 42, 1302 // declare and init multiple vars at once
-var foo = 42 // type omitted, will be inferred
+// in variable declarations, type goes after identifier! 
+var foo int // without explicit initialization a variable will be initialized with the "zero value" of its type (0 in the case of int)
+var foo int = 42 // with initialization
+var foo, bar int = 42, 1302 // declare and initialize multiple vars at once
+var foo = 42 // if the type is omitted, it will be inferred
 foo := 42 // shorthand, only in func bodies, omit var keyword, type is always implicit
 const constant = "This is a constant"
 ```
@@ -137,7 +137,7 @@ func functionName() int {
     return 42
 }
 
-// Can return multiple values at once
+// Can return multiple values
 func returnMulti() (int, string) {
     return 42, "foobar"
 }
@@ -244,18 +244,19 @@ u := uint(f)
 ```
 
 ## Packages 
-* package declaration at top of every source file
+* a package name is required!
+* the package declaration is at the top of every source file
 * executables are in package `main`
 * convention: package name == last name of import path (import path `math/rand` => package `rand`)
-* upper case identifier: exported (visible from other packages)
-* Lower case identifier: private (not visible from other packages) 
+* Upper Case identifier: exported (visible from other packages)
+* lower case identifier: private (not visible from other packages) 
 
 ## Control structures
 
 ### If
 ```go
 func main() {
-	// Basic one
+	// standard if statement
 	if x > 0 {
 		return x
 	} else {
@@ -290,8 +291,8 @@ func main() {
     for { // you can omit the condition ~ while (true)
     }
     
-    // using a range:
-    // if you only need the index:
+    // using ranges:
+    // if you only need the index
     for index := range slice_array_or_map {
     }
     // with index and value
