@@ -110,7 +110,7 @@ func main() {
 |`*`|dereference pointer|
 |`<-`|send / receive operator (see 'Channels' below)|
 
-## Declarations
+## Variable Declarations
 ```go
 // in variable declarations, type goes after identifier! 
 var foo int // without explicit initialization a variable will be initialized with the "zero value" of its type (0 in the case of int)
@@ -119,6 +119,24 @@ var foo, bar int = 42, 1302 // declare and initialize multiple vars at once
 var foo = 42 // if the type is omitted, it will be inferred
 foo := 42 // shorthand, only in func bodies, omit var keyword, type is always implicit
 const constant = "This is a constant"
+```
+
+## Built-in Types
+```
+bool
+
+string
+
+int  int8  int16  int32  int64
+uint uint8 uint16 uint32 uint64 uintptr
+
+byte // alias for uint8
+
+rune // alias for int32 ~= a character (Unicode code point)
+
+float32 float64
+
+complex64 complex128
 ```
 
 ## Functions
@@ -213,24 +231,6 @@ func adder(args ...int) int {
 }
 ```
 
-## Built-in Types
-```
-bool
-
-string
-
-int  int8  int16  int32  int64
-uint uint8 uint16 uint32 uint64 uintptr
-
-byte // alias for uint8
-
-rune // alias for int32 ~= a character (Unicode code point)
-
-float32 float64
-
-complex64 complex128
-```
-
 ## Type Conversions
 ```go
 var i int = 42
@@ -244,8 +244,8 @@ u := uint(f)
 ```
 
 ## Packages 
-* a package name is required!
 * the package declaration is at the top of every source file
+* package name is explicitly required! (there is no implicit `default` package)
 * executables are in package `main`
 * convention: package name == last name of import path (import path `math/rand` => package `rand`)
 * Upper Case identifier: exported (visible from other packages)
@@ -279,6 +279,26 @@ func main() {
 }
 ```
 
+### Switch
+```go
+    // switch statement
+    switch operatingSystem {
+    case "darwin":
+        fmt.Println("Mac OS Hipster")
+        // cases break automatically, no fallthrough by default
+    case "linux":
+        fmt.Println("Linux Geek")
+    default:
+        // Windows, BSD, ...
+        fmt.Println("Other")
+    }
+
+    // as with for and if, you can have an assignment statement before the switch value 
+    switch os := runtime.GOOS; os {
+    case "darwin": ...
+    }
+```
+
 ### Loops
 ```go
     // There's only `for`, no `while`, no `until`
@@ -300,26 +320,6 @@ func main() {
     }
     // if you don't need the index
     for _, value := range slice_array_or_map {
-    }
-```
-
-### Switch
-```go
-    // switch statement
-    switch operatingSystem {
-    case "darwin":
-        fmt.Println("Mac OS Hipster")
-        // cases break automatically, no fallthrough by default
-    case "linux":
-        fmt.Println("Linux Geek")
-    default:
-        // Windows, BSD, ...
-        fmt.Println("Other")
-    }
-
-    // as with for and if, you can have an assignment statement before the switch value 
-    switch os := runtime.GOOS; os {
-    case "darwin": ...
     }
 ```
 
