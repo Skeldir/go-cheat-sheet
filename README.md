@@ -8,23 +8,23 @@
   * [Logical](#logical)
   * [Other](#other)
 3. [Declarations](#declarations)
-4. [Functions](#functions)
+4. [Built-in Types](#built-in-types)
+5. [Type Concersions](#type-conversions)
+6. [Functions](#functions)
   * [Functions as values and closures](#functions-as-values-and-closures)
   * [Variadic Functions](#variadic-functions)
-5. [Built-in Types](#built-in-types)
-6. [Type Concersions](#type-conversions)
 7. [Packages](#packages)
 8. [Control structures](#control-structures)
   * [If](#if)
-  * [Loops](#loops)
   * [Switch](#switch)
+  * [Loops](#loops)
 9. [Arrays, Slices, Ranges](#arrays-slices-ranges)
   * [Arrays](#arrays)
   * [Slices](#slices)
   * [Operations on Arrays and Slices](#operations-on-arrays-and-slices)
 10. [Maps](#maps)
-11. [Structs](#structs)
-12. [Pointers](#pointers)
+11. [Pointers](#pointers)
+12. [Structs](#structs)
 13. [Interfaces](#interfaces)
 14. [Embedding](#embedding)
 15. [Errors](#errors)
@@ -33,7 +33,6 @@
   * [Channels](#channels)
   * [Channel Axioms](#channel-axioms)
 17. [Snippets](#snippets)
-  * [Http-Server](#http-server)
 
 ## Credits
 
@@ -139,6 +138,18 @@ float32 float64
 complex64 complex128
 ```
 
+## Type Conversions
+```go
+var i int = 42
+var f float64 = float64(i)
+var u uint = uint(f)
+
+// alternative syntax
+i := 42
+f := float64(i)
+u := uint(f)
+```
+
 ## Functions
 ```go
 // a simple function
@@ -231,17 +242,6 @@ func adder(args ...int) int {
 }
 ```
 
-## Type Conversions
-```go
-var i int = 42
-var f float64 = float64(i)
-var u uint = uint(f)
-
-// alternative syntax
-i := 42
-f := float64(i)
-u := uint(f)
-```
 
 ## Packages 
 * the package declaration is at the top of every source file
@@ -621,31 +621,3 @@ func doStuff(channelOut, channelIn chan int) {
   ```
 
 # Snippets
-
-## HTTP Server
-```go
-package main
-
-import (
-    "fmt"
-    "net/http"
-)
-
-// define a type for the response
-type Hello struct{}
-
-// let that type implement the ServeHTTP method (defined in interface http.Handler)
-func (h Hello) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-    fmt.Fprint(w, "Hello!")
-}
-
-func main() {
-    var h Hello
-    http.ListenAndServe("localhost:4000", h)
-}
-
-// Here's the method signature of http.ServeHTTP:
-// type Handler interface {
-//     ServeHTTP(w http.ResponseWriter, r *http.Request)
-// }
-```
