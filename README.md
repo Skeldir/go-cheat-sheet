@@ -18,11 +18,11 @@
   * [If](#if)
   * [Switch](#switch)
   * [Loops](#loops)
-9. [Arrays, Slices, Ranges](#arrays-slices-ranges)
+9. [Arrays, Slices, Maps and Ranges](#arrays-slices-maps-ranges)
   * [Arrays](#arrays)
   * [Slices](#slices)
-  * [Operations on Arrays and Slices](#operations-on-arrays-and-slices)
-10. [Maps](#maps)
+  * [Maps](#maps)
+  * [Ranges](#Ranges)
 11. [Pointers](#pointers)
 12. [Structs](#structs)
 13. [Interfaces](#interfaces)
@@ -311,19 +311,9 @@ func main() {
     for { // you can omit the condition ~ while (true)
     }
     
-    // using ranges:
-    // if you only need the index
-    for index := range slice_array_or_map {
-    }
-    // with index and value
-    for index, value := range slice_array_or_map {
-    }
-    // if you don't need the index
-    for _, value := range slice_array_or_map {
-    }
 ```
 
-## Arrays, Slices
+## Arrays, Slices, Maps and Ranges
 
 ### Arrays
 ```go
@@ -358,33 +348,7 @@ x := [3]string{"Лайка", "Белка", "Стрелка"}
 s := x[:] // a slice referencing the storage of x
 ```
 
-### Operations on Arrays and Slices
-`len(a)` gives you the length of an array/a slice. It's a built-in function, not a attribute/method on the array.
-
-```go
-// loop over an array/a slice
-for i, e := range a {
-    // i is the index, e the element
-}
-
-// if you only need e:
-for _, e := range a {
-    // e is the element
-}
-
-// ...and if you only need the index
-for i := range a {
-}
-
-// In Go pre-1.4, you'll get a compiler error if you're not using i and e.
-// Go 1.4 introduced a variable-free form, so that you can do this
-for range time.Tick(time.Second) {
-    // do it once a sec
-}
-
-```
-
-## Maps
+### Maps
 
 ```go
 var m map[string]int
@@ -400,6 +364,32 @@ elem, ok := m["key"] // test if key "key" is present and retrieve it, if so
 var m = map[string]Vertex{
     "Bell Labs": {40.68433, -74.39967},
     "Google":    {37.42202, -122.08408},
+}
+
+```
+
+### Ranges
+`len(a)` gives you the length of an array/a slice. It's a built-in function, not a attribute/method on the array. But in case you want to access each entry of a array/slice/map, better use `range`:
+
+```go
+
+    // if you only need the index/key
+    for index := range slice_array_or_map {
+    }
+    
+    // with index/key and value
+    for index, value := range slice_array_or_map {
+    }
+    
+    // if you don't need the index/key
+    for _, value := range slice_array_or_map {
+    }
+
+// In Go pre-1.4, you'll get a compiler error if you're not using 'i' and 'e' for index and value 
+
+// Go 1.4 introduced a variable-free form, so that you can do this
+for range time.Tick(time.Second) {
+    // do it once a sec
 }
 
 ```
