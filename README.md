@@ -43,7 +43,7 @@ If you're new to Go, do that tour. Seriously.
 
 * Imperative language
 * Statically typed
-* Syntax similar to Java/C/C++, but less parantheses and no semicolons
+* Syntax similar to Java/C, but less parantheses and no semicolons
 * Compiles to native code (no VM/Interpreter)
 * No classes, but structs with methods
 * Interfaces
