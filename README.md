@@ -17,12 +17,12 @@
 8. [Control structures](#control-structures)
   * [If](#if)
   * [Switch](#switch)
-  * [Loops](#loops)
+  * [For](#for)
 9. [Arrays, Slices, Maps and Ranges](#arrays-slices-maps-ranges)
   * [Arrays](#arrays)
   * [Slices](#slices)
   * [Maps](#maps)
-  * [Ranges](#Ranges)
+  * [Ranges](#ranges)
 11. [Pointers](#pointers)
 12. [Structs](#structs)
 13. [Interfaces](#interfaces)
@@ -110,13 +110,14 @@ func main() {
 |`<-`|send / receive operator (see 'Channels' below)|
 
 ## Variable Declarations
+In variable declarations, type goes after identifier! 
+Without explicit initialization a variable will be initialized with the "zero value" of its type (e.g. 0 in the case of `int`).
 ```go
-// in variable declarations, type goes after identifier! 
-var foo int // without explicit initialization a variable will be initialized with the "zero value" of its type (0 in the case of int)
-var foo int = 42 // with initialization
+var foo int // implicit initialization; foo = 0
+var foo int = 42 // explicit initialization
 var foo, bar int = 42, 1302 // declare and initialize multiple vars at once
 var foo = 42 // if the type is omitted, it will be inferred
-foo := 42 // shorthand, only in func bodies, omit var keyword, type is always implicit
+foo := 42 // shorthand; only in func bodies, omit var keyword, type is infered
 const constant = "This is a constant"
 ```
 
@@ -255,61 +256,65 @@ func adder(args ...int) int {
 
 ### If
 ```go
-func main() {
-	// standard if statement
-	if x > 0 {
-		return x
-	} else {
-		return -x
-	}
-    	
-	// You can put one statement before the condition
-	if a := b + c; a < 42 {
-		return a
-	} else {
-		return a - 42
-	}
-    
-	// Type assertion inside if
-	var val interface{}
-	val = "foo"
-	if str, ok := val.(string); ok {
-		fmt.Println(str)
-	}
+// standard if statement
+if x > 0 {
+    return x
+} else {
+    return -x
+}
+   	
+// You can put one statement before the condition
+if a := b + c; a < 42 {
+    return a
+} else {
+    return a - 42
+}
+   
+// Type assertion inside if
+var val interface{}
+val = "foo"
+if str, ok := val.(string); ok {
+    fmt.Println(str)
 }
 ```
 
 ### Switch
 ```go
-    // switch statement
-    switch operatingSystem {
-    case "darwin":
-        fmt.Println("Mac OS Hipster")
-        // cases break automatically, no fallthrough by default
-    case "linux":
-        fmt.Println("Linux Geek")
-    default:
-        // Windows, BSD, ...
-        fmt.Println("Other")
-    }
+// switch statement
+switch operatingSystem {
+case "darwin":
+    fmt.Println("Mac OS Hipster")
+    // cases break automatically, no fallthrough by default
+case "linux":
+    fmt.Println("Linux Geek")
+default:
+    // Windows, BSD, ...
+    fmt.Println("Other")
+}
 
-    // as with for and if, you can have an assignment statement before the switch value 
-    switch os := runtime.GOOS; os {
-    case "darwin": ...
-    }
+// As with 'if', you can have an assignment statement before the switch value 
+switch os := runtime.GOOS; os {
+case "darwin": ...
+}
 ```
 
-### Loops
+### For
+There's only `for`, no `while`, no `until`.
 ```go
-    // There's only `for`, no `while`, no `until`
-    for i := 1; i < 10; i++ {
-    }
-    for ; i < 10;  { // while - loop
-    }
-    for i < 10  { // you can omit semicolons if there is only a condition
-    }
-    for { // you can omit the condition ~ while (true)
-    }
+for i := 1; i < 10; i++ {
+}
+
+// while - loop
+for ; i < 10;  { 
+}
+
+// you can omit semicolons if there is only a condition:
+for i < 10  { 
+}
+
+// you can omit the condition ~ while (true)
+for { 
+}
     
 ```
 
@@ -356,7 +361,7 @@ m = make(map[string]int)
 m["key"] = 42
 fmt.Println(m["key"])
 
-delete(m, "key")
+delete(m, "key") // remove the key/value pair from the map
 
 elem, ok := m["key"] // test if key "key" is present and retrieve it, if so
 
@@ -373,17 +378,17 @@ var m = map[string]Vertex{
 
 ```go
 
-    // if you only need the index/key
-    for index := range slice_array_or_map {
-    }
+// if you only need the index/key
+for index := range slice_array_or_map {
+}
     
-    // with index/key and value
-    for index, value := range slice_array_or_map {
-    }
+// with index/key and value
+for index, value := range slice_array_or_map {
+}
     
-    // if you don't need the index/key
-    for _, value := range slice_array_or_map {
-    }
+// if you don't need the index/key
+for _, value := range slice_array_or_map {
+}
 
 // In Go pre-1.4, you'll get a compiler error if you're not using 'i' and 'e' for index and value 
 
