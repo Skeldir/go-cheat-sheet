@@ -18,7 +18,7 @@
   * [If](#if)
   * [Switch](#switch)
   * [For](#for)
-9. [Arrays, Slices, Maps and Ranges](#arrays-slices-maps-ranges)
+9. [Arrays, Slices, Maps](#arrays-slices-maps)
   * [Arrays](#arrays)
   * [Slices](#slices)
   * [Maps](#maps)
@@ -139,7 +139,7 @@ float32 float64
 complex64 complex128
 ```
 
-## Type Conversions
+## Type Conversion and Type Assertion
 ```go
 var i int = 42
 var f float64 = float64(i)
@@ -149,7 +149,23 @@ var u uint = uint(f)
 i := 42
 f := float64(i)
 u := uint(f)
+
+// to assert a type, put it in parenthesis after the variable
+if i.(int) {
+}
+// this works with built-in types and user-defined (struct) types
+
 ```
+
+
+## Packages 
+* the package declaration is at the top of every source file
+* package name is explicitly required! (there is no implicit `default` package)
+* executables are in package `main`
+* convention: package name == last name of import path (import path `math/rand` => package `rand`)
+* Upper Case identifier: exported (visible from other packages)
+* lower case identifier: private (not visible from other packages) 
+
 
 ## Functions
 ```go
@@ -244,14 +260,6 @@ func adder(args ...int) int {
 ```
 
 
-## Packages 
-* the package declaration is at the top of every source file
-* package name is explicitly required! (there is no implicit `default` package)
-* executables are in package `main`
-* convention: package name == last name of import path (import path `math/rand` => package `rand`)
-* Upper Case identifier: exported (visible from other packages)
-* lower case identifier: private (not visible from other packages) 
-
 ## Control structures
 
 ### If
@@ -301,10 +309,11 @@ case "darwin": ...
 ### For
 There's only `for`, no `while`, no `until`.
 ```go
+// go allows the classic C for-loop syntax
 for i := 1; i < 10; i++ {
 }
 
-// while - loop
+// "while-loop" surrogate
 for ; i < 10;  { 
 }
 
@@ -312,13 +321,13 @@ for ; i < 10;  {
 for i < 10  { 
 }
 
-// you can omit the condition ~ while (true)
+// you can omit the condition to get a "while(true)" loop
 for { 
 }
     
 ```
 
-## Arrays, Slices, Maps and Ranges
+## Arrays, Slices, Maps
 
 ### Arrays
 ```go
@@ -374,7 +383,8 @@ var m = map[string]Vertex{
 ```
 
 ### Ranges
-`len(a)` gives you the length of an array/a slice. It's a built-in function, not a attribute/method on the array. But in case you want to access each entry of a array/slice/map, better use `range`:
+`len(a)` gives you the length of an array/a slice. It's a built-in function, not a attribute/method on the array. 
+But in case you want to access each entry of a array/slice/map, better use `range`:
 
 ```go
 
@@ -390,7 +400,7 @@ for index, value := range slice_array_or_map {
 for _, value := range slice_array_or_map {
 }
 
-// In Go pre-1.4, you'll get a compiler error if you're not using 'i' and 'e' for index and value 
+// In Go pre-1.4, you'll get a compiler error if you're not using 'i' and 'e' for index/key and value 
 
 // Go 1.4 introduced a variable-free form, so that you can do this
 for range time.Tick(time.Second) {
